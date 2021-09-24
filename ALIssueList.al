@@ -1,18 +1,16 @@
-page 50100 ALIssueList
+page 50105 ALIssueList
 {
+    Caption = 'ALIssueList';
     PageType = List;
+    UsageCategory = Lists;
     ApplicationArea = All;
-    CaptionML = ENU = 'AL Issues';
-    UsageCategory = Administration;
     SourceTable = ALIssue;
-    Editable = false;
-    SourceTableView = order(descending);
 
     layout
     {
         area(Content)
         {
-            group(Allgemein)
+            repeater(Group)
             {
                 field(number; Rec.number)
                 {
@@ -38,26 +36,16 @@ page 50100 ALIssueList
                 {
                     ApplicationArea = all;
                 }
+
             }
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-                ApplicationArea = All;
-
-                trigger OnAction()
-                begin
-
-                end;
-            }
-        }
-    }
-
+    // Ruft die Klasse RefreshALIssueCode auf
+    trigger OnOpenPage()
     var
-        myInt: Integer;
+        RefreshALIssueCode: Codeunit RefreshALIssuesCode;
+    begin
+        RefreshALIssueCode.Run();
+    end;
 }
